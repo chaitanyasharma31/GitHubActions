@@ -1,7 +1,7 @@
 
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: A Basic Workflow
 
 # Controls when the workflow will run
 on:
@@ -35,3 +35,20 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  build-api:
+    runs-on: windows-latest
+    steps:
+      - run: echo "Building API"
+
+  build-db:
+    needs: build-app
+    runs-on: windows-latest
+    steps:
+      - run: echo "Hello Windows"
+
+  package:
+    needs: [build-app, build-db]
+    runs-on: macos-latest
+    steps:
+      - run: echo "Hello MacOS"
